@@ -5,7 +5,7 @@ export class ExpTools {
         return (x: number) => a + b * Math.exp(c * x);
     }
 
-    static getRandExp(a: number, b: number, c: number, d: number): (x: number) => number {
+    static getRandomizedExp(a: number, b: number, c: number, d: number): (x: number) => number {
         let exp = ExpTools.getExp(a, b, c);
         return (x: number) => {
             return exp(x) + (Math.random() - 0.5) * d;

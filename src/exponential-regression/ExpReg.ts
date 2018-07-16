@@ -2,9 +2,7 @@
 export class ExpReg {
 
     static sum(l: number[]): number {
-        let r: number = 0;
-        l.forEach(n => r += n);
-        return r;
+        return l.reduce((prev, curr) => prev + curr, 0);
     }
 
     static invMat22(mat: number[][]): number[][] {
@@ -61,7 +59,7 @@ export class ExpReg {
         // A1, B1
         const AB: number[] = ExpReg.multMat22WithVect(ExpReg.invMat22(C), D);
 
-        // c1, c2
+        // c2
         let c2: number = AB[1];
 
         // θk
