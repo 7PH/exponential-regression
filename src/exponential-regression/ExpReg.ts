@@ -1,7 +1,30 @@
-import * as math from "mathjs";
-import {ExpTools} from "./ExpTools";
 
 export class ExpReg {
+
+    static sum(l: number[]): number {
+        let r: number = 0;
+        l.forEach(n => r += n);
+        return r;
+    }
+
+    static invMat22(mat: number[][]): number[][] {
+        const a: number = mat[0][0];
+        const b: number = mat[0][1];
+        const c: number = mat[1][0];
+        const d: number = mat[1][1];
+        let coef: number = 1 / (a * d - b * c);
+        return [
+            [coef * d, - coef * b],
+            [- coef * c, coef * a]
+        ];
+    }
+
+    static multMat22WithVect(mat1: number[][], mat2: number[]): number[] {
+        return [
+            mat1[0][0] * mat2[0] + mat1[0][1] * mat2[1],
+            mat1[1][0] * mat2[0] + mat1[1][1] * mat2[1]
+        ];
+    }
 
     static solve(xk: number[], yk: number[]): {a: number, b: number, c: number} {
         const N: number = xk.length;
@@ -24,22 +47,22 @@ export class ExpReg {
          */
 
         // C
-        const c11: number = ExpTools.sum(xk.map(x => Math.pow(x - xk[0], 2)));
-        const c12: number = ExpTools.sum(xk.map((x, k) => (x - xk[0]) * Sk[k]));
+        const c11: number = ExpReg.sum(xk.map(x => Math.pow(x - xk[0], 2)));
+        const c12: number = ExpReg.sum(xk.map((x, k) => (x - xk[0]) * Sk[k]));
         const c21: number = c12;
-        const c22: number = ExpTools.sum(Sk.map(S => Math.pow(S, 2)));
-        const C: math.Matrix = math.matrix([[c11, c12], [c21, c22]]);
+        const c22: number = ExpReg.sum(Sk.map(S => Math.pow(S, 2)));
+        const C: number[][] = [[c11, c12], [c21, c22]];
 
         // D
-        const d11: number = ExpTools.sum(xk.map((x, k) => (yk[k] - yk[0]) * (xk[k] - xk[0])));
-        const d21: number = ExpTools.sum(yk.map((y, k) => (y - yk[0]) * Sk[k]));
-        const D: math.Matrix = math.matrix([[d11], [d21]]);
+        const d11: number = ExpReg.sum(xk.map((x, k) => (yk[k] - yk[0]) * (xk[k] - xk[0])));
+        const d21: number = ExpReg.sum(yk.map((y, k) => (y - yk[0]) * Sk[k]));
+        const D: number[] = [d11, d21];
 
         // A1, B1
-        const AB: math.Matrix = math.multiply(math.inv(C), D) as math.Matrix;
+        const AB: number[] = ExpReg.multMat22WithVect(ExpReg.invMat22(C), D);
 
         // c1, c2
-        let c2: number = AB.get([1, 0]);
+        let c2: number = AB[1];
 
         // θk
         let thetak: number[] = [];
@@ -58,20 +81,20 @@ export class ExpReg {
 
         // E
         const e11: number = N;
-        const e12: number = ExpTools.sum(thetak);
+        const e12: number = ExpReg.sum(thetak);
         const e21: number = e12;
-        const e22: number = ExpTools.sum(thetak.map(theta => Math.pow(theta, 2)));
-        const E: math.Matrix = math.matrix([[e11, e12], [e21, e22]]);
+        const e22: number = ExpReg.sum(thetak.map(theta => Math.pow(theta, 2)));
+        const E: number[][] = [[e11, e12], [e21, e22]];
 
         // F
-        const f11: number = ExpTools.sum(yk);
-        const f21: number = ExpTools.sum(yk.map((y, k) => y * thetak[k]));
-        const F: math.Matrix = math.matrix([[f11], [f21]]);
+        const f11: number = ExpReg.sum(yk);
+        const f21: number = ExpReg.sum(yk.map((y, k) => y * thetak[k]));
+        const F: number[] = [f11, f21];
 
         // a2, b2
-        const ab: math.Matrix = math.multiply(math.inv(E), F) as math.Matrix;
-        const a2: number = ab.get([0, 0]);
-        const b2: number = ab.get([1, 0]);
+        const ab: number[] = ExpReg.multMat22WithVect(ExpReg.invMat22(E), F);
+        const a2: number = ab[0];
+        const b2: number = ab[1];
 
         // return result
         return {

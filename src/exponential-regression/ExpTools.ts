@@ -11,10 +11,4 @@ export class ExpTools {
             return exp(x) + (Math.random() - 0.5) * d;
         };
     }
-
-    static sum(l: number[]): number {
-        let r: number = 0;
-        l.forEach(n => r += n);
-        return r;
-    }
 }
