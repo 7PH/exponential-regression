@@ -1,1 +1,1 @@
-export * from './Exp'
+export * from './ExpReg'
