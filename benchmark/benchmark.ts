@@ -8,8 +8,8 @@ const b: number = 0.6;
 const c: number = - 1.7;
 const XMIN: number = 0;
 const XMAX: number = 20;
-const N: number = 100;
-const RANDOM: number = 0;
+const N: number = 1000;
+const RANDOM: number = 0.2;
 let f: (x: number) => number = ExpTools.getRandomizedExp(a, b, c, RANDOM);
 
 // get points
@@ -30,10 +30,4 @@ for (let i = 0; i < solveFun.length; ++i) {
     for (let j = 0; j < 1000; ++ j)
         solved = solve(xk, yk);
     console.timeEnd('solve v' + i);
-    // print
-    console.log(`RESULTS
-        a = ${a} -> ${solved.a}
-        b = ${b} -> ${solved.b}
-        c = ${c} -> ${solved.c}
-    `);
 }

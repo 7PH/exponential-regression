@@ -17,21 +17,7 @@ Here is the benchmark result for the methods solve, solve2, solve3.
 When published, solve3 will be used as solve.
 
 ```text
-solve v0: 3225.422ms
-RESULTS
-        a = 0.3 -> 0.32850744209838423
-        b = 0.6 -> 0.5642649371523555
-        c = 1.7 -> 1.7620596268238664
-    
-solve v1: 253.244ms
-RESULTS
-        a = 0.3 -> 0.32850744209838423
-        b = 0.6 -> 0.5642649371523555
-        c = 1.7 -> 1.7620596268238664
-    
-solve v2: 195.047ms
-RESULTS
-        a = 0.3 -> 0.32850744209838423
-        b = 0.6 -> 0.5642649371523555
-        c = 1.7 -> 1.7620596268238664
+solve v0: 333.477ms
+solve v1: 27.777ms
+solve v2: 21.431ms
 ```
