@@ -7,7 +7,8 @@
         "clean": "rm -rf ./dist/*",
         "build": "npm run clean; tsc;",
         "start": "npm run build; node dist/src/index.js",
-        "test": "npm run build; node dist/tests/test.js"
+        "bench": "npm run build; node dist/benchmark/benchmark.js",
+        "test": "npm run build; node dist/test/test.js"
     },
     "author": "Benjamin Raymond <b.raymond@protonmail.com",
     "license": "ISC",
