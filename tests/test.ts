@@ -10,24 +10,10 @@ const XMIN: number = -1;
 const XMAX: number = 1;
 const N: number = 10;
 const RANDOM: number = 0.1;
-
-// function
 let f: (x: number) => number = ExpTools.getRandomizedExp(a, b, c, RANDOM);
 
-// xk = [0, 1, ..., N]
-let xk: number[] = [];
-for (let k: number = 0; k < N; ++ k)
-    xk.push(XMIN + (k / N) * (XMAX - XMIN));
-
-// yk = f(xk)
-let yk: number[] = [];
-for (let k: number = 0; k < xk.length; ++ k)
-    yk.push(f(xk[k]));
-
-// display values
-console.log(`  xk         yk`);
-for (let k: number = 0; k < xk.length; ++ k)
-    console.log(`${xk[k].toFixed(2)}       ${yk[k].toFixed(2)}`);
+// get points
+const {xk, yk}: {xk: number[], yk: number[]} = ExpTools.getPoints(f, XMIN, XMAX, N);
 
 // solve
 let solved: {a: number, b: number, c: number} = ExpReg.solve(xk, yk);
