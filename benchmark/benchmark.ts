@@ -26,8 +26,8 @@ for (let i = 0; i < solveFun.length; ++i) {
     for (let j = 0; j < 1000; ++ j)
         solve(xk, yk);
     // bench
-    console.time('solve v' + i);
+    console.time('solve' + i);
     for (let j = 0; j < 1000; ++ j)
         solved = solve(xk, yk);
-    console.timeEnd('solve v' + i);
+    console.timeEnd('solve' + i);
 }

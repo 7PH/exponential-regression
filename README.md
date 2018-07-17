@@ -12,12 +12,10 @@ given a set of points, it will give back the approximations of a, b and c.
 
 ## Benchmark
 
-Here is the benchmark result for the methods solve, solve2, solve3.
-
-When published, solve3 will be used as solve.
+Here is the benchmark result for the methods solve (optimized), solve2 (previous version) and solve3 (first version).
 
 ```text
-solve v0: 333.477ms
-solve v1: 27.777ms
-solve v2: 21.431ms
+solve0: 21.467ms
+solve1: 27.186ms
+solve2: 331.194ms
 ```
