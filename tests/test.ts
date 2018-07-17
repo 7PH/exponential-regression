@@ -16,7 +16,9 @@ let f: (x: number) => number = ExpTools.getRandomizedExp(a, b, c, RANDOM);
 const {xk, yk}: {xk: number[], yk: number[]} = ExpTools.getPoints(f, XMIN, XMAX, N);
 
 // solve
+console.time('solve');
 let solved: {a: number, b: number, c: number} = ExpReg.solve(xk, yk);
+console.timeEnd('solve');
 
 // display result
 console.log(`
@@ -25,3 +27,17 @@ RESULTS
     b = ${b} -> ${solved.b}
     c = ${c} -> ${solved.c}
 `);
+
+// solve
+console.time('solve 2');
+solved = ExpReg.solve2(xk, yk);
+console.timeEnd('solve 2');
+
+// display result
+console.log(`
+RESULTS
+    a = ${a} -> ${solved.a}
+    b = ${b} -> ${solved.b}
+    c = ${c} -> ${solved.c}
+`);
+

@@ -101,4 +101,69 @@ export class ExpReg {
             c: c2
         };
     }
+
+    static solve2(xk: number[], yk: number[]): {a: number, b: number, c: number} {
+        const N: number = xk.length;
+
+        // sort points
+        // {nothing to do}
+
+        let Sk: number[] = [0];
+        for (let k: number = 1; k < xk.length; ++ k)
+            Sk.push(Sk[k - 1] + 0.5 * (yk[k] + yk[k - 1]) * (xk[k] - xk[k - 1]));
+
+        // Sk, C & D
+        let c11: number = 0,
+            c12: number = 0,
+            // c21 = c12
+            c22: number = 0,
+            d1: number = 0,
+            d2: number = 0;
+        for (let k: number = 0; k < N; ++ k) {
+            c11 += Math.pow(xk[k] - xk[0], 2);
+            c12 += (xk[k] - xk[0]) * Sk[k];
+            c22 += Math.pow(Sk[k], 2);
+            d1 += (yk[k] - yk[0]) * (xk[k] - xk[0]);
+            d2 += (yk[k] - yk[0]) * Sk[k];
+        }
+        const C: number[][] = [[c11, c12], [c12, c22]]; // c12 = c21
+        const D: number[] = [d1, d2];
+
+
+        // A1, B1
+        const AB: number[] = ExpReg.multMat22WithVect(ExpReg.invMat22(C), D);
+
+        // c2
+        let c2: number = AB[1];
+
+        // θk, E, F
+        let theta: number = 0,
+            // e11 = N
+            e12: number = 0,
+            // e21 = e12
+            e22: number = 0,
+            f1: number = 0,
+            f2: number = 0;
+        for (let k: number = 0; k < N; ++ k) {
+            theta = Math.exp(c2 * xk[k]);
+            e12 += theta;
+            e22 += Math.pow(theta, 2);
+            f1 += yk[k];
+            f2 += yk[k] * theta;
+        }
+        const E: number[][] = [[N, e12], [e12, e22]];
+        const F: number[] = [f1, f2];
+
+        // a2, b2
+        const ab: number[] = ExpReg.multMat22WithVect(ExpReg.invMat22(E), F);
+        const a2: number = ab[0];
+        const b2: number = ab[1];
+
+        // return result
+        return {
+            a: a2,
+            b: b2,
+            c: c2
+        };
+    }
 }
