@@ -6,7 +6,8 @@ import * as fs from "fs";
 const STORE_PATH: string = '/afs/cern.ch/user/b/braymond/Downloads/files/expreg.csv';
 const N: number = 50;
 const configs: TestConfig[] = [];
-configs.push({ // converging quick, range ok
+configs.push({
+    title: 'converging quick, range ok',
     a: - 10,
     b: - 10,
     c: - 0.2,
@@ -15,7 +16,8 @@ configs.push({ // converging quick, range ok
     N: N,
     RANDOM: 3
 });
-configs.push({ // converging quick, range too wide
+configs.push({
+    title: 'converging quick, range too wide',
     a: 0,
     b: - 10,
     c: - 0.2,
@@ -24,7 +26,8 @@ configs.push({ // converging quick, range too wide
     N: N,
     RANDOM: 3
 });
-configs.push({ // converging
+configs.push({
+    title: 'converging',
     a: 10,
     b: 10,
     c: - 0.05,
@@ -33,7 +36,8 @@ configs.push({ // converging
     N: N,
     RANDOM: 0.1
 });
-configs.push({ // converging
+configs.push({
+    title: 'converging',
     a: 20,
     b: 10,
     c: - 0.5,
@@ -42,7 +46,8 @@ configs.push({ // converging
     N: N,
     RANDOM: 0.1
 });
-configs.push({ // diverging
+configs.push({
+    title: 'diverging',
     a: 30,
     b: 10,
     c: 0.01,
@@ -51,7 +56,8 @@ configs.push({ // diverging
     N: N,
     RANDOM: 3
 });
-configs.push({ // diverging
+configs.push({
+    title: 'diverging',
     a: 40,
     b: 10,
     c: 0.01,
@@ -84,6 +90,7 @@ function storeResult(path: string, signals: {xk: number[], yk: number[], title: 
 }
 
 interface TestConfig {
+    title: string;
     a: number,
     b: number,
     c: number,
@@ -117,7 +124,7 @@ for (let i = 0; i < configs.length; ++ i) {
 
     plots.push(plot0, plot1, plot2);
 
-    console.log(`RESULTS
+    console.log(`RESULTS for ${config.title} - ${JSON.stringify(config)}
     -        a = ${Math.abs(config.a - solvedVariables.a).toFixed(4)} <- ${config.a} / ${solvedVariables.a}
     -        b = ${Math.abs(config.b - solvedVariables.b).toFixed(4)} <- ${config.b} / ${solvedVariables.b}
     -        c = ${Math.abs(config.c - solvedVariables.c).toFixed(4)} <- ${config.c} / ${solvedVariables.c}
