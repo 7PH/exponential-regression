@@ -24,8 +24,6 @@ export class ExpReg {
         ];
     }
 
-
-
     static solve(xk: number[], yk: number[]): {a: number, b: number, c: number} {
         const N: number = xk.length;
 
