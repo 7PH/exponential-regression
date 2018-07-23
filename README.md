@@ -19,3 +19,7 @@ solve0: 21.467ms
 solve1: 27.186ms
 solve2: 331.194ms
 ```
+
+## Credits
+
+Many thanks to Jean Jacquelin for his paper 'REGRESSION & FULL EQUATIONS'

@@ -1,4 +1,7 @@
-
+/**
+ * @author Benjamin RAYMOND
+ * Inspired from the work of Jean JACQUELIN
+ */
 export class ExpReg {
 
     static sum(l: number[]): number {
