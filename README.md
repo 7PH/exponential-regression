@@ -22,4 +22,4 @@ solve2: 331.194ms
 
 ## Credits
 
-Many thanks to Jean Jacquelin for his paper 'REGRESSION & FULL EQUATIONS'
+Many thanks to Jean Jacquelin for his paper [REGRESSION & FULL EQUATIONS](https://www.researchgate.net/profile/Mohammad_Elnesr/post/Is_it_possible_to_find_the_root_without_providing_an_initial_guess_starting_point/attachment/59d63eadc49f478072ea9315/AS%3A273771590553603%401442283641886/download/14674814-Regressions-et-equations-integrales.pdf)
