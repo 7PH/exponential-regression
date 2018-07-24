@@ -2,10 +2,10 @@
     "compilerOptions": {
         "module": "commonjs",
         "noImplicitAny": true,
-        "removeComments": true,
+        "removeComments": false,
         "declaration": true,
         "outDir": "./dist/",
-        "target": "es6",
+        "target": "esnext",
         "lib": ["es5", "es6"]
     },
     "include": [

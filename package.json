@@ -10,7 +10,7 @@
         "bench": "npm run build; node dist/benchmark/benchmark.js",
         "test": "npm run build; node dist/test/test.js"
     },
-    "author": "Benjamin Raymond <b.raymond@protonmail.com",
+    "author": "Benjamin Raymond <b.raymond@protonmail.com>",
     "license": "ISC",
     "devDependencies": {
         "@types/node": "^10.5.2"
