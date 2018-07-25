@@ -14,10 +14,23 @@ given a set of points, it will give back the approximations of a, b and c.
 
 Here is the benchmark result for the methods solve (optimized), solve2 (previous version) and solve3 (first version).
 
+```typescript
+parameters:
+const a: number = 0.3;
+const b: number = 0.6;
+const c: number = - 1.7;
+const RANDOM: number = 0.2;
+
+const XMIN: number = 0;
+const XMAX: number = 20;
+const N: number = 1000000; // number of points
+```
+
 ```text
-solve0: 21.467ms
-solve1: 27.186ms
-solve2: 331.194ms
+results:
+solve3: 1465.813ms
+solve2: 45.340ms
+solve1: 21.793ms
 ```
 
 ## Credits

@@ -80,6 +80,10 @@ export class ExpReg {
         };
     }
 
+    static solve1(xk: number[], yk: number[]): {a: number, b: number, c: number} {
+        return ExpReg.solve(xk, yk);
+    }
+
     static solve2(xk: number[], yk: number[]): {a: number, b: number, c: number} {
         const N: number = xk.length;
 
