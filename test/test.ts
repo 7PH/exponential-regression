@@ -168,4 +168,5 @@ for (let i = 0; i < configs.length; ++ i) {
 
 
 // plot
+console.log("Store result in " + STORE_PATH);
 storeResult(STORE_PATH, plots);
