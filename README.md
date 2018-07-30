@@ -27,10 +27,11 @@ const N: number = 1000000; // number of points
 ```
 
 ```text
-results:
-solve3: 1465.813ms
-solve2: 45.340ms
-solve1: 21.793ms
+function                                ms              values
+solve x+y [old]                         1480 ms         [0.3, 0.57, -1.52]
+solve x+y [old]                         45 ms           [0.3, 0.57, -1.52]
+solve x+y [optimized]                   23 ms           [0.3, 0.57, -1.52]
+solve origin+period+y [optimized]       34 ms           [0.3, 0.57, -1.52]
 ```
 
 ## Credits
