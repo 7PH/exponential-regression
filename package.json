@@ -1,6 +1,6 @@
 {
     "name": "exponential-regression",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "description": "JavaScript tool written in TypeScript for exponential regression with constant term (t => a + b * exp(c * t)) without dependency",
     "main": "dist/src/index.js",
     "scripts": {
