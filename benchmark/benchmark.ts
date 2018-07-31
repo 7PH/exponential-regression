@@ -16,16 +16,18 @@ let f: (x: number) => number = ExpTools.getRandomizedExp(a, b, c, RANDOM);
 const {xk, yk}: {xk: number[], yk: number[]} = ExpTools.getPoints(f, XMIN, XMAX, N);
 const origin: number = xk[0];
 const period: number = xk[1] - xk[0];
+const points: number[][] = xk.map((xk, index) => [xk, yk[index]]);
 
 // result
 let solved: {a: number, b: number, c: number};
 
 // solve
 let solveFun: any = [
-    {fun: ExpReg.solve3, name: 'solve x+y [old]', type: 'xy'},
-    {fun: ExpReg.solve2, name: 'solve x+y [old]', type: 'xy'},
-    {fun: ExpReg.solve, name: 'solve x+y [optimized]', type: 'xy'},
-    {fun: ExpReg.solveByOrigin, name: 'solve origin+period+y [optimized]', type: 'oy'}
+    {fun: ExpReg.solve3,        name: 'solve(xk: number[], yk: number[]) [old]', type: 'xy'},
+    {fun: ExpReg.solve2,        name: 'solve(xk: number[], yk: number[]) [old]', type: 'xy'},
+    {fun: ExpReg.solve,         name: 'solve(xk: number[], yk: number[]) [optimized]', type: 'xy'},
+    {fun: ExpReg.solveWithY, name: 'solve(o: number, t: number, yk: number[]) [optimized]', type: 'oy'},
+    {fun: ExpReg.solveWithPoints,    name: 'solve(points: number[][]) [optimized]', type: 'pt'}
 ];
 
 
@@ -36,6 +38,8 @@ for (let solve of solveFun) {
     for (let j = 0; j < 4; ++ j)
         if (solve.type === 'xy')
             solve.fun(xk, yk);
+        else if (solve.type === 'pt')
+            solve.fun(points);
         else
             solve.fun(origin, period, yk);
 
@@ -43,13 +47,15 @@ for (let solve of solveFun) {
     const start = Date.now();
     if (solve.type === 'xy')
         solve.result = solve.fun(xk, yk);
+    else if (solve.type === 'pt')
+        solve.result = solve.fun(points);
     else
         solve.result = solve.fun(origin, period, yk);
     solve.duration = Date.now() - start;
 }
 
 // output
-console.log('function' + " ".repeat(40 - 8) + 'ms' + " ".repeat(16 - 2) + 'values');
+console.log('function' + " ".repeat(60 - 8) + 'ms' + " ".repeat(16 - 2) + 'values');
 for (let solve of solveFun) {
     const name: string = solve.name;
     const dur: string = solve.duration.toString() + " ms";
@@ -60,5 +66,5 @@ for (let solve of solveFun) {
     ]   .map(v => v.toFixed(2))
         .map(parseFloat)
     ).replace(/,/g, ", ");
-    console.log(name + " ".repeat(40 - name.length) + dur + " ".repeat(16 - dur.length) + res);
+    console.log(name + " ".repeat(60 - name.length) + dur + " ".repeat(16 - dur.length) + res);
 }

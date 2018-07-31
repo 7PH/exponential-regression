@@ -29,11 +29,68 @@ export class ExpReg {
 
     /**
      * Solve with a different kind of input for the data
+     * @param xyk
+     */
+    static solveWithPoints(xyk: number[][]): {a: number, b: number, c: number} {
+        const N: number = xyk.length;
+
+        // sort points
+        // {nothing to do}
+
+        // Sk, C & D
+        let Sk: number = 0,
+            c11: number = 0,
+            c12: number = 0,
+            c22: number = 0,
+            d1: number = 0,
+            d2: number = 0;
+        for (let k: number = 1; k < N; ++ k) {
+            Sk = Sk + 0.5 * (xyk[k][1] + xyk[k - 1][1]) * (xyk[k][0] - xyk[k - 1][0]);
+            c11 += Math.pow(xyk[k][0] - xyk[0][0], 2);
+            c12 += (xyk[k][0] - xyk[0][0]) * Sk;
+            c22 += Math.pow(Sk, 2);
+            d1 += (xyk[k][1] - xyk[0][1]) * (xyk[k][0] - xyk[0][0]);
+            d2 += (xyk[k][1] - xyk[0][1]) * Sk;
+        }
+
+        // c2
+        let coef: number = 1 / (c11 * c22 - c12 * c12);
+        let c2: number = (- coef * c12) * d1 + (coef * c11) * d2;
+
+        // θk, E, F
+        let theta: number = 0,
+            // e11 = N
+            e12: number = 0,
+            // e21 = e12
+            e22: number = 0,
+            f1: number = 0,
+            f2: number = 0;
+        for (let k: number = 0; k < N; ++ k) {
+            theta = Math.exp(c2 * xyk[k][0]);
+            e12 += theta;
+            e22 += Math.pow(theta, 2);
+            f1 += xyk[k][1];
+            f2 += xyk[k][1] * theta;
+        }
+
+        // a2, b2
+        const ab: number[] = ExpReg.multMat22WithVect(ExpReg.invMat22([[N, e12], [e12, e22]]), [f1, f2]);
+
+        // return result
+        return {
+            a: ab[0],
+            b: ab[1],
+            c: c2
+        };
+    }
+
+    /**
+     * Solve with a different kind of input for the data
      * @param origin
      * @param period
      * @param yk
      */
-    static solveByOrigin(origin: number, period: number, yk: number[]): {a: number, b: number, c: number} {
+    static solveWithY(origin: number, period: number, yk: number[]): {a: number, b: number, c: number} {
         const N: number = yk.length;
         const xk: number[] = [origin, origin + period];
 
