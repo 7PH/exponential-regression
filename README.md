@@ -16,8 +16,8 @@ Here are the available methods to get the approximation of (a, b, c):
 
 ```typescript
 RegExp.solve(xk: number[], yk: number[]): {a: number, b: number, c: number}
-RegExp.solveWithPoints(points: number[][]): {a: number, b: number, c: number}
-RegExp.solveWithY(origin: number, period: number, yk: number[]): {a: number, b: number, c: number}
+RegExp.solve(xyk: number[][]): {a: number, b: number, c: number}
+RegExp.solve(origin: number, period: number, yk: number[]): {a: number, b: number, c: number}
 ```
 
 ## Benchmark

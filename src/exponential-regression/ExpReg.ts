@@ -2,6 +2,15 @@
  * @author Benjamin RAYMOND
  * Inspired from the work of Jean JACQUELIN
  */
+
+/**
+ * Regression result
+ */
+export interface RegressionResult {a: number; b: number; c: number;}
+
+/**
+ * Main utility class
+ */
 export class ExpReg {
 
     static sum(l: number[]): number {
@@ -28,10 +37,31 @@ export class ExpReg {
     }
 
     /**
+     * Solve wrapper
+     *      solve(xk: number[], yk: number[])
+     *      solve(xyk: number[][])
+     *      solve(origin: number, period: number, yk: number[])
+     * @param a
+     * @param b
+     * @param c
+     * @return the regression result
+     */
+    static solve(a: number[][] | number[] | number, b?: number[] | number, c?: number[]): RegressionResult {
+        if (typeof a === 'number' && typeof b === 'number' && typeof c === 'object')
+            return this.solveOPYK(a, b, c);
+        else if (typeof a === 'object' && typeof a[0] === 'object' && typeof b === 'undefined' && typeof c === 'undefined')
+            return this.solveXYK(a as number[][]);
+        else if (typeof a === 'object' && typeof a[0] === 'number' && typeof b === 'object' && typeof c === 'undefined')
+            return this.solveXKYK(a as number[], b);
+        else
+            throw new Error("Wrong parameters given to solve function");
+    }
+
+    /**
      * Solve with a different kind of input for the data
      * @param xyk
      */
-    static solveWithPoints(xyk: number[][]): {a: number, b: number, c: number} {
+    static solveXYK(xyk: number[][]): RegressionResult {
         const N: number = xyk.length;
 
         // sort points
@@ -90,7 +120,7 @@ export class ExpReg {
      * @param period
      * @param yk
      */
-    static solveWithY(origin: number, period: number, yk: number[]): {a: number, b: number, c: number} {
+    static solveOPYK(origin: number, period: number, yk: number[]): RegressionResult {
         const N: number = yk.length;
         const xk: number[] = [origin, origin + period];
 
@@ -150,7 +180,7 @@ export class ExpReg {
      * @param xk
      * @param yk
      */
-    static solve(xk: number[], yk: number[]): {a: number, b: number, c: number} {
+    static solveXKYK(xk: number[], yk: number[]): RegressionResult {
         const N: number = xk.length;
 
         // sort points
@@ -208,7 +238,7 @@ export class ExpReg {
      * @param xk
      * @param yk
      */
-    static solve2(xk: number[], yk: number[]): {a: number, b: number, c: number} {
+    static solveXKYK2(xk: number[], yk: number[]): RegressionResult {
         const N: number = xk.length;
 
         // sort points
@@ -278,7 +308,7 @@ export class ExpReg {
      * @param xk
      * @param yk
      */
-    static solve3(xk: number[], yk: number[]): {a: number, b: number, c: number} {
+    static solveXKYK3(xk: number[], yk: number[]): RegressionResult {
         const N: number = xk.length;
 
         // sort points

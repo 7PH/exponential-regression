@@ -40,7 +40,7 @@ export class ExpTools {
     }
 
     /**
-     * Builds a list of points with the right format for ExpReg.solve
+     * Builds a list of points with the right format for ExpReg.solveXKYK
      * @param {(x: number) => number} f Exponential function
      * @param {number} min Minimum of the range
      * @param {number} max Maximum of the range

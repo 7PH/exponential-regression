@@ -150,7 +150,7 @@ for (let i = 0; i < configs.length; ++ i) {
     const plot1: { xk: number[], yk: number[], title: string } = {xk: pts1.xk, yk: pts1.yk, title: title + '-real-1'};
 
     // result
-    let solvedVariables: { a: number, b: number, c: number } = ExpReg.solve(pts1.xk, pts1.yk);
+    let solvedVariables: { a: number, b: number, c: number } = ExpReg.solveXKYK(pts1.xk, pts1.yk);
 
     // get points
     let solved: (x: number) => number = ExpTools.getExp(solvedVariables.a, solvedVariables.b, solvedVariables.c);

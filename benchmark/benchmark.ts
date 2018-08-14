@@ -21,13 +21,13 @@ const points: number[][] = xk.map((xk, index) => [xk, yk[index]]);
 // result
 let solved: {a: number, b: number, c: number};
 
-// solve
+// solveXKYK
 let solveFun: any = [
-    {fun: ExpReg.solve3,        name: 'solve(xk: number[], yk: number[]) [old]', type: 'xy'},
-    {fun: ExpReg.solve2,        name: 'solve(xk: number[], yk: number[]) [old]', type: 'xy'},
-    {fun: ExpReg.solve,         name: 'solve(xk: number[], yk: number[]) [optimized]', type: 'xy'},
-    {fun: ExpReg.solveWithY, name: 'solve(o: number, t: number, yk: number[]) [optimized]', type: 'oy'},
-    {fun: ExpReg.solveWithPoints,    name: 'solve(points: number[][]) [optimized]', type: 'pt'}
+    {fun: ExpReg.solveXKYK3, name: 'solveXKYK(xk: number[], yk: number[]) [old]', type: 'xy'},
+    {fun: ExpReg.solveXKYK2, name: 'solveXKYK(xk: number[], yk: number[]) [old]', type: 'xy'},
+    {fun: ExpReg.solveXKYK, name: 'solveXKYK(xk: number[], yk: number[]) [optimized]', type: 'xy'},
+    {fun: ExpReg.solveOPYK, name: 'solveXKYK(o: number, t: number, yk: number[]) [optimized]', type: 'oy'},
+    {fun: ExpReg.solveXYK, name: 'solveXKYK(points: number[][]) [optimized]', type: 'pt'}
 ];
 
 
