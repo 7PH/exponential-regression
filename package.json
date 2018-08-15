@@ -1,7 +1,7 @@
 {
     "name": "exponential-regression",
     "version": "1.0.1",
-    "description": "Fast non-iterative exponential regression with constant term (t => a + b * exp(c * t)) with no dependency",
+    "description": "Super fast non-iterative exponential regression with constant term (t => a + b * exp(c * t)) with no dependency",
     "main": "build/src/index.js",
     "scripts": {
         "clean": "rm -rf ./build/*",

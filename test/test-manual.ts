@@ -3,7 +3,8 @@ import * as fs from "fs";
 import {TestSample, samples} from "./samples";
 
 // store path, can be a currently opened file in PowerSpy
-const STORE_PATH: string = '/afs/cern.ch/user/b/braymond/Downloads/files/expreg.csv';
+// https://service-powerspy.web.cern.ch/
+const STORE_PATH: string = process.argv[2] || './expreg.csv';
 
 /**
  *

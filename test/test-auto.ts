@@ -23,7 +23,7 @@ describe('it', function () {
             const points: {xk: number[], yk: number[]} = ExpTools.getPoints(expFun, sample.XMIN, sample.XMAX, sample.N);
 
             // make regression
-            const solved: {a: number, b: number, c: number} = ExpReg.solveXKYK(points.xk, points.yk);
+            const solved: {a: number, b: number, c: number} = ExpReg.solve(points.xk, points.yk);
 
             // compute error
             const relativeError: number =
