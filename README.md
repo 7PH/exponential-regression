@@ -10,9 +10,9 @@ t => a + b * exp(c * t)
 ```
 
 It accepts various form of input for the points, that is:
+* `solve([x0, x1, ..], [y0, y1, ..])`
 * `sovle([[t0, y0], [t1, y1], ..])`
-* `solve([x0, x1, ..],              [y0, y1, ..])`
-* `solve(origin,                    period,         [y0, y1, ..])`
+* `solve(origin, period, [y0, y1, ..])`
 
 The fastest being the first one.
 
