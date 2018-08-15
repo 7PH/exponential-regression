@@ -1,19 +1,23 @@
 {
     "name": "exponential-regression",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Fast non-iterative exponential regression with constant term (t => a + b * exp(c * t)) with no dependency",
-    "main": "dist/src/index.js",
+    "main": "build/src/index.js",
     "scripts": {
-        "clean": "rm -rf ./dist/*",
+        "clean": "rm -rf ./build/*",
         "build": "npm run clean; tsc;",
-        "start": "npm run build; node dist/src/index.js",
-        "bench": "npm run build; node dist/benchmark/benchmark.js",
-        "test": "npm run build; node dist/test/test.js"
+        "start": "npm run build; node build/src/index.js",
+        "bench": "npm run build; node build/benchmark/benchmark.js",
+        "test-manual": "npm run build; node build/test/test-manual.js",
+        "test-auto": "npm run build; mocha build/test/test-auto.js",
+        "test": "npm run test-auto"
     },
     "author": "Benjamin Raymond <b.raymond@protonmail.com>",
     "license": "ISC",
     "devDependencies": {
-        "@types/node": "^10.5.2"
+        "@types/mocha": "^5.2.5",
+        "@types/node": "^10.5.2",
+        "mocha": "^5.2.0"
     },
     "dependencies": {}
 }
