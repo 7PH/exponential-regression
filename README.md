@@ -50,9 +50,11 @@ npm i --save exponential-regression
 Here are the available methods to get the approximation of (a, b, c):
 
 ```typescript
-RegExp.solve(xk: number[], yk: number[]): {a: number, b: number, c: number}
-RegExp.solve(xyk: number[][]): {a: number, b: number, c: number}
-RegExp.solve(origin: number, period: number, yk: number[]): {a: number, b: number, c: number}
+type RegressionResult {a: number; b: number; c: number;}
+
+RegExp.solve(xk: number[], yk: number[]): RegressionResult
+RegExp.solve(xyk: number[][]): RegressionResult
+RegExp.solve(origin: number, period: number, yk: number[]): RegressionResult
 ```
 
 ## Test
