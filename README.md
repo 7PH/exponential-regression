@@ -6,7 +6,7 @@ It also supports a non-zero constant term, that is every function of the form:
 
 ```javascript
 t => a + b * exp(c * t)
-// (a, b, c) ϵ ℤ³
+// (a, b, c) ϵ ℝ³
 ```
 
 It accepts various form of input for the points, that is:

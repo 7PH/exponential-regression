@@ -12,7 +12,7 @@ export interface TestSample {
 
 export const samples: TestSample[] = [];
 
-const N: number = 100;
+const N: number = 1000;
 let yOffset: number = 0;
 const yRange: number = - 25;
 samples.push({
@@ -86,7 +86,7 @@ samples.push({
     RANDOM: 3
 });
 samples.push({
-    title: 'converging, almost no noise',
+    title: 'converging, little noise',
     a: (yOffset = yOffset + yRange),
     b: 10,
     c: - 0.05,
@@ -96,7 +96,7 @@ samples.push({
     RANDOM: 0.1
 });
 samples.push({
-    title: 'converging, almost no noise',
+    title: 'converging, little noise',
     a: (yOffset = yOffset + yRange),
     b: 10,
     c: - 0.5,
@@ -104,4 +104,24 @@ samples.push({
     XMAX: 100,
     N: N,
     RANDOM: 0.1
+});
+samples.push({
+    title: 'converging, almost no noise',
+    a: (yOffset = yOffset + yRange),
+    b: 10,
+    c: - 0.05,
+    XMIN: 0,
+    XMAX: 100,
+    N: N,
+    RANDOM: 0.01
+});
+samples.push({
+    title: 'converging, almost no noise',
+    a: (yOffset = yOffset + yRange),
+    b: 10,
+    c: - 0.5,
+    XMIN: 0,
+    XMAX: 100,
+    N: N,
+    RANDOM: 0.01
 });

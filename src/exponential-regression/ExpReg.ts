@@ -13,10 +13,18 @@ export interface RegressionResult {a: number; b: number; c: number;}
  */
 export class ExpReg {
 
+    /**
+     * Compute the sum of a given list of numbers
+     * @param l
+     */
     static sum(l: number[]): number {
         return l.reduce((prev, curr) => prev + curr, 0);
     }
 
+    /**
+     * Get the inverse of a 2x2 matrix. Throw an error if det(mat) === 0
+     * @param mat
+     */
     static invMat22(mat: number[][]): number[][] {
         const a: number = mat[0][0];
         const b: number = mat[0][1];
@@ -29,6 +37,12 @@ export class ExpReg {
         ];
     }
 
+    /**
+     * Multiply two 2x2 matrices
+     * @param mat1
+     * @param mat2
+     * @return mat1.mat2
+     */
     static multMat22WithVect(mat1: number[][], mat2: number[]): number[] {
         return [
             mat1[0][0] * mat2[0] + mat1[0][1] * mat2[1],
@@ -177,6 +191,9 @@ export class ExpReg {
 
     /**
      * Final optimized implementation
+     *  - re-use variables
+     *  - use Sk as number, not array
+     *  - we only need the lower part of C^(-1).D => only compute this part
      * @param xk
      * @param yk
      */
@@ -235,6 +252,7 @@ export class ExpReg {
 
     /**
      * Second implementation
+     *  - merged loops
      * @param xk
      * @param yk
      */
