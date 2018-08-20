@@ -101,4 +101,4 @@ npm run bench
 
 ## Credits
 
-Many thanks to Jean Jacquelin for his paper [REGRESSION & FULL EQUATIONS](https://www.researchgate.net/profile/Mohammad_Elnesr/post/Is_it_possible_to_find_the_root_without_providing_an_initial_guess_starting_point/attachment/59d63eadc49f478072ea9315/AS%3A273771590553603%401442283641886/download/14674814-Regressions-et-equations-integrales.pdf)
+Many thanks to Jean Jacquelin for his paper [REGRESSION & FULL EQUATIONS](https://docs.google.com/viewerng/viewer?url=https://vdocuments.mx/google-reader?url%3D8bf88bb8494245d48534059c6e5d1b8630a73b474ac5d81f4256b8e456b73e62687c7d053aaa7a02c5163509a87f56011550c0a5a8201ce15dee2389157b4bd0033QA6JE21/IeptLczb4ix0/zlsBeCp26DZcX5Wd3+EgqAF1Gs3rPJ1fkz0OpaiNJiMJDH4HxZHe44KC3asnyQ%3D%3D)
