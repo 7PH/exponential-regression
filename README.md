@@ -74,7 +74,7 @@ npm run test-manual $STORE_PATH
 `$STORE_PATH` is the path where you would like to store the csv file.
 
 ## Benchmark
-Benchmark has been done using these parameters
+Benchmark between different input forms have been done using these values
 ```typescript
 const A: number = 0.3;
 const B: number = 0.6;
@@ -87,8 +87,6 @@ const N: number = 1000000; // number of points
 
 ```text
 function                                                    ms
-solve(xk: number[], yk: number[]) [old]                     1466 ms
-solve(xk: number[], yk: number[]) [old]                     48 ms
 solve(xk: number[], yk: number[]) [optimized]               21 ms
 solve(o: number, t: number, yk: number[]) [optimized]       55 ms
 solve(points: number[][]) [optimized]                       30 ms
@@ -101,4 +99,4 @@ npm run bench
 
 ## Credits
 
-Many thanks to Jean Jacquelin for his paper [REGRESSION & FULL EQUATIONS](https://docs.google.com/viewerng/viewer?url=https://vdocuments.mx/google-reader?url%3D8bf88bb8494245d48534059c6e5d1b8630a73b474ac5d81f4256b8e456b73e62687c7d053aaa7a02c5163509a87f56011550c0a5a8201ce15dee2389157b4bd0033QA6JE21/IeptLczb4ix0/zlsBeCp26DZcX5Wd3+EgqAF1Gs3rPJ1fkz0OpaiNJiMJDH4HxZHe44KC3asnyQ%3D%3D)
+Credits to Jean Jacquelin for his paper [REGRESSION & FULL EQUATIONS](https://docs.google.com/viewerng/viewer?url=https://vdocuments.mx/google-reader?url%3D8bf88bb8494245d48534059c6e5d1b8630a73b474ac5d81f4256b8e456b73e62687c7d053aaa7a02c5163509a87f56011550c0a5a8201ce15dee2389157b4bd0033QA6JE21/IeptLczb4ix0/zlsBeCp26DZcX5Wd3+EgqAF1Gs3rPJ1fkz0OpaiNJiMJDH4HxZHe44KC3asnyQ%3D%3D)
