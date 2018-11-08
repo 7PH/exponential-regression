@@ -1,4 +1,4 @@
-# Exponential regression
+# Exponential regression <img src="https://api.travis-ci.com/7PH/exponential-regression.svg?branch=master">
 
 This library provides a fast and simple non-iterative way to make exponential regressions.
 
