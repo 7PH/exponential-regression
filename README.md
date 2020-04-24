@@ -99,4 +99,4 @@ npm run bench
 
 ## Credits
 
-Credits to Jean Jacquelin for his paper [REGRESSION & FULL EQUATIONS](https://docs.google.com/viewerng/viewer?url=https://vdocuments.mx/google-reader?url%3D8bf88bb8494245d48534059c6e5d1b8630a73b474ac5d81f4256b8e456b73e62687c7d053aaa7a02c5163509a87f56011550c0a5a8201ce15dee2389157b4bd0033QA6JE21/IeptLczb4ix0/zlsBeCp26DZcX5Wd3+EgqAF1Gs3rPJ1fkz0OpaiNJiMJDH4HxZHe44KC3asnyQ%3D%3D)
+Credits to Jean Jacquelin for his paper [REGRESSION & FULL EQUATIONS](https://www.scribd.com/doc/14674814/Regressions-et-equations-integrales)
