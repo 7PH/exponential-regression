@@ -1,3 +1,5 @@
+import Decimal from "decimal.js";
+
 /**
  * @author Benjamin RAYMOND
  * Inspired from the work of Jean JACQUELIN
@@ -22,15 +24,23 @@ export class ExpReg {
     }
 
     /**
+     * precise version of the sum
+     * @param l
+     */
+    static sumPrecise(l: Decimal[]): Decimal {
+        return l.reduce((prev, curr) => prev.plus(curr), new Decimal(0));
+    }
+
+    /**
      * Get the inverse of a 2x2 matrix. Throw an error if det(mat) === 0
      * @param mat
      */
     static invMat22(mat: number[][]): number[][] {
-        const a: number = mat[0][0];
-        const b: number = mat[0][1];
-        const c: number = mat[1][0];
-        const d: number = mat[1][1];
-        let coef: number = 1 / (a * d - b * c);
+        const a = mat[0][0];
+        const b = mat[0][1];
+        const c = mat[1][0];
+        const d = mat[1][1];
+        let coef = 1 / (a * d - b * c);
         return [
             [coef * d, - coef * b],
             [- coef * c, coef * a]
@@ -47,6 +57,35 @@ export class ExpReg {
         return [
             mat1[0][0] * mat2[0] + mat1[0][1] * mat2[1],
             mat1[1][0] * mat2[0] + mat1[1][1] * mat2[1]
+        ];
+    }
+
+    /**
+     * Get the inverse of a 2x2 matrix. Throw an error if det(mat) === 0
+     * @param mat
+     */
+    static invMat22Precise(mat: (number | Decimal)[][]): Decimal[][] {
+        const a = new Decimal(mat[0][0]);
+        const b = new Decimal(mat[0][1]);
+        const c = new Decimal(mat[1][0]);
+        const d = new Decimal(mat[1][1]);
+        let coef = new Decimal(1).div(a.times(d).minus(b.times(c)));
+        return [
+            [coef.times(d), coef.times(b).negated()],
+            [coef.times(c).negated(), coef.times(a)]
+        ];
+    }
+
+    /**
+     * Multiply two 2x2 matrices (precise version)
+     * @param mat1
+     * @param mat2
+     * @return mat1.mat2
+     */
+    static multMat22WithVectPrecise(mat1: Decimal[][], mat2: Decimal[]): Decimal[] {
+        return [
+            mat1[0][0].times(mat2[0]).plus(mat1[0][1].times(mat2[1])),
+            mat1[1][0].times(mat2[0]).plus(mat1[1][1].times(mat2[1]))
         ];
     }
 
@@ -142,12 +181,12 @@ export class ExpReg {
         // {nothing to do}
 
         // Sk, C & D
-        let Sk: number = 0,
-            c11: number = 0,
-            c12: number = 0,
-            c22: number = 0,
-            d1: number = 0,
-            d2: number = 0;
+        let Sk = 0,
+            c11 = 0,
+            c12 = 0,
+            c22 = 0,
+            d1 = 0,
+            d2 = 0;
         for (let k: number = 1; k < N; ++ k) {
             Sk = Sk + 0.5 * (yk[k] + yk[k - 1]) * period;
             c11 += Math.pow(xk[k] - origin, 2);
@@ -160,6 +199,7 @@ export class ExpReg {
 
         // c2
         let coef: number = 1 / (c11 * c22 - c12 * c12);
+        console.log(coef, c11, c12, c22, d1, d2);
         let c2: number = (- coef * c12) * d1 + (coef * c11) * d2;
 
         // θk, E, F
@@ -251,82 +291,11 @@ export class ExpReg {
     }
 
     /**
-     * Second implementation
-     *  - merged loops
+     * Non-optimized version that however handles big decimals
      * @param xk
      * @param yk
      */
-    static solveXKYK2(xk: number[], yk: number[]): RegressionResult {
-        const N: number = xk.length;
-
-        // sort points
-        // {nothing to do}
-
-        let Sk: number[] = [0];
-        for (let k: number = 1; k < xk.length; ++ k)
-            Sk.push(Sk[k - 1] + 0.5 * (yk[k] + yk[k - 1]) * (xk[k] - xk[k - 1]));
-
-        // Sk, C & D
-        let c11: number = 0,
-            c12: number = 0,
-            // c21 = c12
-            c22: number = 0,
-            d1: number = 0,
-            d2: number = 0;
-        for (let k: number = 0; k < N; ++ k) {
-            c11 += Math.pow(xk[k] - xk[0], 2);
-            c12 += (xk[k] - xk[0]) * Sk[k];
-            c22 += Math.pow(Sk[k], 2);
-            d1 += (yk[k] - yk[0]) * (xk[k] - xk[0]);
-            d2 += (yk[k] - yk[0]) * Sk[k];
-        }
-        const C: number[][] = [[c11, c12], [c12, c22]]; // c12 = c21
-        const D: number[] = [d1, d2];
-
-
-        // A1, B1
-        const AB: number[] = ExpReg.multMat22WithVect(ExpReg.invMat22(C), D);
-
-        // c2
-        let c2: number = AB[1];
-
-        // θk, E, F
-        let theta: number = 0,
-            // e11 = N
-            e12: number = 0,
-            // e21 = e12
-            e22: number = 0,
-            f1: number = 0,
-            f2: number = 0;
-        for (let k: number = 0; k < N; ++ k) {
-            theta = Math.exp(c2 * xk[k]);
-            e12 += theta;
-            e22 += Math.pow(theta, 2);
-            f1 += yk[k];
-            f2 += yk[k] * theta;
-        }
-        const E: number[][] = [[N, e12], [e12, e22]];
-        const F: number[] = [f1, f2];
-
-        // a2, b2
-        const ab: number[] = ExpReg.multMat22WithVect(ExpReg.invMat22(E), F);
-        const a2: number = ab[0];
-        const b2: number = ab[1];
-
-        // return result
-        return {
-            a: a2,
-            b: b2,
-            c: c2
-        };
-    }
-
-    /**
-     * First not optimized version
-     * @param xk
-     * @param yk
-     */
-    static solveXKYK3(xk: number[], yk: number[]): RegressionResult {
+    static solveXKYKPrecise(xk: number[], yk: number[]): RegressionResult {
         const N: number = xk.length;
 
         // sort points
@@ -359,16 +328,16 @@ export class ExpReg {
         const D: number[] = [d11, d21];
 
         // A1, B1
-        const AB: number[] = ExpReg.multMat22WithVect(ExpReg.invMat22(C), D);
+        const AB: Decimal[] = ExpReg.multMat22WithVectPrecise(ExpReg.invMat22Precise(C), [new Decimal(D[0]), new Decimal(D[1])]);
 
         // c2
-        let c2: number = AB[1];
+        let c2: number = AB[1].toNumber();
 
         // θk
-        let thetak: number[] = [];
-        for (let k: number = 0; k < xk.length; ++ k)
-            thetak.push(Math.exp(c2 * xk[k]));
-
+        let thetak: Decimal[] = [];
+        for (let k: number = 0; k < xk.length; ++ k) {
+            thetak.push(Decimal.exp(c2 * xk[k]))
+        }
 
         /*
                                         -1
@@ -380,21 +349,21 @@ export class ExpReg {
          */
 
         // E
-        const e11: number = N;
-        const e12: number = ExpReg.sum(thetak);
-        const e21: number = e12;
-        const e22: number = ExpReg.sum(thetak.map(theta => Math.pow(theta, 2)));
-        const E: number[][] = [[e11, e12], [e21, e22]];
+        const e11: Decimal = new Decimal(N);
+        const e12: Decimal = ExpReg.sumPrecise(thetak);
+        const e21: Decimal = e12;
+        const e22: Decimal = ExpReg.sumPrecise(thetak.map(theta => theta.times(theta)));
+        const E: Decimal[][] = [[e11, e12], [e21, e22]];
 
         // F
-        const f11: number = ExpReg.sum(yk);
-        const f21: number = ExpReg.sum(yk.map((y, k) => y * thetak[k]));
-        const F: number[] = [f11, f21];
+        const f11: Decimal = new Decimal(ExpReg.sum(yk));
+        const f21: Decimal = ExpReg.sumPrecise(yk.map((y, k) => thetak[k].times(y)));
+        const F: Decimal[] = [f11, f21];
 
         // a2, b2
-        const ab: number[] = ExpReg.multMat22WithVect(ExpReg.invMat22(E), F);
-        const a2: number = ab[0];
-        const b2: number = ab[1];
+        const ab: Decimal[] = ExpReg.multMat22WithVectPrecise(ExpReg.invMat22Precise(E), [new Decimal(F[0]), new Decimal(F[1])]);
+        const a2: number = ab[0].toNumber();
+        const b2: number = ab[1].toNumber();
 
         // return result
         return {

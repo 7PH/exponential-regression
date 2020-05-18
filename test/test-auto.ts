@@ -1,4 +1,4 @@
-import {samples, TestSample} from "./samples";
+import {samples} from "./samples";
 import {ExpReg, ExpTools} from "../src/exponential-regression";
 
 

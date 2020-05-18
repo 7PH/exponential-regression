@@ -20,5 +20,7 @@
         "mocha": "^5.2.0",
         "typescript": "^3.2.1"
     },
-    "dependencies": {}
+    "dependencies": {
+        "decimal.js": "^10.2.0"
+    }
 }

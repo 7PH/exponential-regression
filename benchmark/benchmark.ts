@@ -23,8 +23,7 @@ let solved: {a: number, b: number, c: number};
 
 // solveXKYK
 let solveFun: any = [
-    {fun: ExpReg.solveXKYK3, name: 'solveXKYK(xk: number[], yk: number[]) [old]', type: 'xy'},
-    {fun: ExpReg.solveXKYK2, name: 'solveXKYK(xk: number[], yk: number[]) [old]', type: 'xy'},
+    {fun: ExpReg.solveXKYKPrecise, name: 'solveXKYK(xk: number[], yk: number[]) [old]', type: 'xy'},
     {fun: ExpReg.solveXKYK, name: 'solveXKYK(xk: number[], yk: number[]) [optimized]', type: 'xy'},
     {fun: ExpReg.solveOPYK, name: 'solveXKYK(o: number, t: number, yk: number[]) [optimized]', type: 'oy'},
     {fun: ExpReg.solveXYK, name: 'solveXKYK(points: number[][]) [optimized]', type: 'pt'}
