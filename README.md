@@ -1,8 +1,8 @@
 # Exponential regression <img src="https://api.travis-ci.com/7PH/exponential-regression.svg?branch=master">
 
-This library provides a fast and simple non-iterative way to make exponential regressions.
+This library provides a fast and simple non-iterative way to make exponential regressions, based on the work of Jean Jacquelin in his paper [REGRESSION & FULL EQUATIONS](https://scikit-guess.readthedocs.io/en/latest/appendices/reei/translation.html)
 
-It also supports a non-zero constant term, that is every function of the form:
+It also supports a non-zero constant term, that is any function of the form:
 
 ```javascript
 t => a + b * exp(c * t)
@@ -10,11 +10,9 @@ t => a + b * exp(c * t)
 ```
 
 It accepts various form of input for the points, that is:
-* `solve([x0, x1, ..], [y0, y1, ..])`
-* `sovle([[t0, y0], [t1, y1], ..])`
+* (fastest) `solve([x0, x1, ..], [y0, y1, ..])`
 * `solve(origin, period, [y0, y1, ..])`
-
-The fastest being the first one.
+* `solve([[t0, y0], [t1, y1], ..])`
 
 Small example:
 ```javascript
@@ -53,8 +51,8 @@ Here are the available methods to get the approximation of (a, b, c):
 type RegressionResult {a: number; b: number; c: number;}
 
 RegExp.solve(xk: number[], yk: number[]): RegressionResult
-RegExp.solve(xyk: number[][]): RegressionResult
 RegExp.solve(origin: number, period: number, yk: number[]): RegressionResult
+RegExp.solve(xyk: number[][]): RegressionResult
 ```
 
 ## Test
@@ -74,7 +72,7 @@ npm run test-manual $STORE_PATH
 `$STORE_PATH` is the path where you would like to store the csv file.
 
 ## Benchmark
-Benchmark between different input forms have been done using these values
+A performance comparison between the three input formats is provided below, with the following parameters
 ```typescript
 const A: number = 0.3;
 const B: number = 0.6;
@@ -84,7 +82,7 @@ const XMAX: number = 20;
 const N: number = 1000000; // number of points
 ```
 
-
+Result:
 ```text
 function                                                    ms
 solve(xk: number[], yk: number[]) [optimized]               21 ms
@@ -92,11 +90,7 @@ solve(o: number, t: number, yk: number[]) [optimized]       55 ms
 solve(points: number[][]) [optimized]                       30 ms
 ```
 
-To run the benchmark, use
+To run this benchmark, use
 ```bash
 npm run bench
 ```
-
-## Credits
-
-Credits to Jean Jacquelin for his paper [REGRESSION & FULL EQUATIONS](https://scikit-guess.readthedocs.io/en/latest/appendices/reei/translation.html)
